@@ -117,7 +117,7 @@ public class EventCenter
             CallBack callBack = d as CallBack; // 將d轉換為CallBack
             if (callBack != null) 
             {
-                callBack();
+                callBack(); // 呼叫事件/執行事件
             }
             else
             {

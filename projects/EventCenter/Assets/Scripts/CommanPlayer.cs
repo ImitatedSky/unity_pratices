@@ -6,6 +6,6 @@ public class CommanPlayer : MonoBehaviour
 {
     public void CallCommand()
     {
-        EventCenter.Broadcast(EventType.command); // 廣播事件
+        EventCenter.Broadcast(EventType.playerAction); // 廣播事件
     }
 }

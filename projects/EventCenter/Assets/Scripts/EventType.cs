@@ -5,6 +5,6 @@ public enum EventType
     command ,
     callA,
     callB,
-    playerMove,
+    playerAction,
 
 }

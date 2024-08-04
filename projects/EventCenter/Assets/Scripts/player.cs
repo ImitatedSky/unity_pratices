@@ -9,12 +9,14 @@ public class player : MonoBehaviour
     private void Awake()
     {
         playerTransform = GetComponent<Transform>();
-        EventCenter.AddListener(EventType.command, Move); // 添加事件到監聽 eventType:command  Move:委託
+        EventCenter.AddListener(EventType.playerAction, Move); // 添加事件到監聽 eventType:command  Move:委託
+        EventCenter.AddListener(EventType.playerAction, Rotate); // 添加事件到監聽 eventType:command  Move:委託
     }
 
     private void OnDestroy()
     {
-        EventCenter.RemoveListener(EventType.command, Move); // 移除事件監聽
+        EventCenter.RemoveListener(EventType.playerAction, Move); // 移除事件監聽
+        EventCenter.RemoveListener(EventType.playerAction, Rotate); // 移除事件監聽
     }
 
     private void Move()
@@ -22,6 +24,12 @@ public class player : MonoBehaviour
         Debug.Log("Player Move");
         playerTransform.position += new Vector3(1, 0, 0);
 
+    }
+
+    private void Rotate()
+    {
+        Debug.Log("Player Rotate");
+        playerTransform.Rotate(new Vector3(15, 15, 15));
     }
 
 }
