@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class EventCenter
 {
+    // 利用delegate來定義一個委託，當事件被觸發時，可以傳遞參數，並呼叫對應的方法
+
     #region 事件廣播主體/基站 : 添加事件、移除事件
     // 定義一個委託列表
     public static Dictionary<EventType, Delegate> eventTable = new Dictionary<EventType, Delegate>();
@@ -148,6 +150,99 @@ public class EventCenter
             if (callBack != null)
             {
                 callBack(arg);
+            }
+            else
+            {
+                throw new Exception(string.Format("Broadcasting event \"{0}\" has no listeners.", eventType));
+            }
+        }
+    }
+    #endregion
+
+    #region 2個參數的廣播類型
+    public static void AddListener<T, X>(EventType eventType, CallBack<T, X> callBack)
+    {
+        OnListenerAdding(eventType, callBack);
+        eventTable[eventType] = (CallBack<T, X>)eventTable[eventType] + callBack;
+    }
+    public static void RemoveListener<T, X>(EventType eventType, CallBack<T, X> callBack)
+    {
+        OnListenerRemoving(eventType, callBack);
+        eventTable[eventType] = (CallBack<T, X>)eventTable[eventType] - callBack;
+        OnListenerRemoved(eventType);
+    }
+
+    public static void Broadcast<T, X>(EventType eventType, T arg1, X arg2)
+    {
+        Delegate d;
+        if (eventTable.TryGetValue(eventType, out d))
+        {
+            CallBack<T, X> callBack = d as CallBack<T, X>;
+            if (callBack != null)
+            {
+                callBack(arg1, arg2);
+            }
+            else
+            {
+                throw new Exception(string.Format("Broadcasting event \"{0}\" has no listeners.", eventType));
+            }
+        }
+    }
+    #endregion
+
+    #region 3個參數的廣播類型
+    public static void AddListener<T, X, Y>(EventType eventType, CallBack<T, X, Y> callBack)
+    {
+        OnListenerAdding(eventType, callBack);
+        eventTable[eventType] = (CallBack<T, X, Y>)eventTable[eventType] + callBack;
+    }
+    public static void RemoveListener<T, X, Y>(EventType eventType, CallBack<T, X, Y> callBack)
+    {
+        OnListenerRemoving(eventType, callBack);
+        eventTable[eventType] = (CallBack<T, X, Y>)eventTable[eventType] - callBack;
+        OnListenerRemoved(eventType);
+    }
+
+    public static void Broadcast<T, X, Y>(EventType eventType, T arg1, X arg2, Y arg3)
+    {
+        Delegate d;
+        if (eventTable.TryGetValue(eventType, out d))
+        {
+            CallBack<T, X, Y> callBack = d as CallBack<T, X, Y>;
+            if (callBack != null)
+            {
+                callBack(arg1, arg2, arg3);
+            }
+            else
+            {
+                throw new Exception(string.Format("Broadcasting event \"{0}\" has no listeners.", eventType));
+            }
+        }
+    }
+    #endregion
+
+    #region 4個參數的廣播類型
+    public static void AddListener<T, X, Y, Z>(EventType eventType, CallBack<T, X, Y, Z> callBack)
+    {
+        OnListenerAdding(eventType, callBack);
+        eventTable[eventType] = (CallBack<T, X, Y, Z>)eventTable[eventType] + callBack;
+    }
+    public static void RemoveListener<T, X, Y, Z>(EventType eventType, CallBack<T, X, Y, Z> callBack)
+    {
+        OnListenerRemoving(eventType, callBack);
+        eventTable[eventType] = (CallBack<T, X, Y, Z>)eventTable[eventType] - callBack;
+        OnListenerRemoved(eventType);
+    }
+
+    public static void Broadcast<T, X, Y, Z>(EventType eventType, T arg1, X arg2, Y arg3, Z arg4)
+    {
+        Delegate d;
+        if (eventTable.TryGetValue(eventType, out d))
+        {
+            CallBack<T, X, Y, Z> callBack = d as CallBack<T, X, Y, Z>;
+            if (callBack != null)
+            {
+                callBack(arg1, arg2, arg3, arg4);
             }
             else
             {
