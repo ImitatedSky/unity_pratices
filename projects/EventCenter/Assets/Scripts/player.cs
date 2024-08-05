@@ -8,7 +8,7 @@ public class player : MonoBehaviour
 
     private void Awake()
     {
-        playerTransform = GetComponent<Transform>();
+        playerTransform = transform; //playerTransform = GetComponent<Transform>();
         EventCenter.AddListener(EventType.playerAction, Move); // 添加事件到監聽 eventType:command  Move:委託
         EventCenter.AddListener(EventType.playerAction, Rotate); // 添加事件到監聽 eventType:command  Move:委託
     }

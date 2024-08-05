@@ -6,5 +6,6 @@ public enum EventType
     callA,
     callB,
     playerAction,
+    player2Action
 
 }
